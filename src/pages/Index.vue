@@ -32,19 +32,18 @@ div
           q-btn(padding="md")
             q-avatar(square, size='128px')
               img(src='icon_d_license.png')
-  q-dialog(v-model='myModal.active_two', full-width, style="width: 80vh; max-width: 80vw;")
-    q-card
-      q-toolbar
-        q-avatar
-          img(src='big-logo.png')
-        q-toolbar-title
-          span(text-weight-bold, class='center-text') Recoleccion de Informacion
-        q-btn(flat='' round='' dense='' icon='close' v-close-popup='myModal.active_two')
+  q-dialog(v-model='myModal.active_two')
+    q-card(style="width: 100%")
+      q-card-section(class='row justify-between')
+        img(src='big-logo.png' style="width:60px")
+        div(class='center-text text-h6') Recoleccion de Informacion
+        div
+          q-btn(flat='' round='' dense='' icon='close' v-close-popup='myModal.active_two')
       q-card-section(class='col')
         div(class='q-pa-md')
-          q-stepper(v-model='myModal.step' color='primary' animated='')
+          q-stepper(v-model='myModal.step' color='primary' animated='' alternative-labels contracted)
             q-step(:name='1' title='Tipo de Documento' icon='settings' :done='myModal.step > 1')
-              div(class='col-md-6 offset-md-3')
+              div(class='column items-center col-md-6 offset-md-3')
                 div
                   q-btn(padding="md" @click="myModal.file_type = 'national-id', myModal.step = 2")
                     q-avatar(square, size='128px')
@@ -65,7 +64,7 @@ div
                 q-btn(flat='' @click='myModal.step = 1' color='primary' label='Atras', class='q-ml-sm')
                 q-btn(@click='myModal.step = 3' color='primary' label='Continue')
                   q-btn.q-ml-sm(flat='' @click='myModal.step = 1' color='primary' label='Atras')
-            q-step(:name='3' title='ocumento Reverso' icon='assignment' disable='')
+            q-step(:name='3' title='Documento Reverso' icon='assignment' disable='')
               div(class='col')
                 img(src='front-document.png')
                 q-uploader(style='max-width: 300px' url='http://localhost:4444/upload' label='Buscar Archivo' multiple='' :filter='checkFileSize' @rejected='onRejected')
