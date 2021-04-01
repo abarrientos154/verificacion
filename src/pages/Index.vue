@@ -32,45 +32,62 @@ div
           q-btn(padding="md")
             q-avatar(square, size='128px')
               img(src='icon_d_license.png')
-  q-dialog(v-model='myModal.active_two')
-    q-card(style="width: 100%")
-      q-card-section(class='row justify-between')
-        img(src='big-logo.png' style="width:60px")
-        div(class='center-text text-h6') Recoleccion de Informacion
-        div
-          q-btn(flat='' round='' dense='' icon='close' v-close-popup='myModal.active_two')
+  q-dialog(v-model='myModal.active_two', full-width, style="width: 80vh; max-width: 80vw;")
+    q-card
+      q-toolbar
+        q-avatar
+          img(src='big-logo.png')
+        q-toolbar-title
+          span(text-weight-bold, class='center-text') Recoleccion de Informacion
+        q-btn(flat='' round='' dense='' icon='close' v-close-popup='myModal.active_two')
       q-card-section(class='col')
         div(class='q-pa-md')
-          q-stepper(v-model='myModal.step' color='primary' animated='' alternative-labels contracted)
+          q-stepper(v-model='myModal.step' color='primary' animated='')
             q-step(:name='1' title='Tipo de Documento' icon='settings' :done='myModal.step > 1')
-              div(class='column items-center col-md-6 offset-md-3')
+              div(class='column items-center')
                 div
-                  q-btn(padding="md" @click="myModal.file_type = 'national-id', myModal.step = 2")
+                  q-btn(flat padding="md" @click="myModal.file_type = 'national-id', myModal.step = 2")
                     q-avatar(square, size='128px')
                       img(src='icon_dni.png')
                 div
-                  q-btn(padding="md" @click="myModal.file_type = 'driving-license', myModal.step = 2")
+                  q-btn(flat padding="md" @click="myModal.file_type = 'driving-license', myModal.step = 2")
                     q-avatar(square, size='128px')
                       img(src='icon_passport.png')
                 div
-                  q-btn(padding="md")
-                    q-avatar(square, size='128px' @click="myModal.file_type = 'passport', myModal.step = 2")
+                  q-btn(flat padding="md" @click="myModal.file_type = 'passport', myModal.step = 2")
+                    q-avatar(square, size='128px')
                       img(src='icon_d_license.png')
-            q-step(:name='2' title='Documento Frontal' caption='Optional' icon='create_new_folder' :done='myModal.step > 2')
-              div(class='col')
+            q-step(:name='2' title='Documento Frontal' icon='create_new_folder' :done='myModal.step > 2')
+              div(class='column items-center')
                 img(src='front-document.png')
                 q-uploader(style='max-width: 300px' url='http://localhost:4444/upload' label='Buscar Archivo' multiple='' :filter='checkFileSize' @rejected='onRejected')
               q-stepper-navigation
                 q-btn(flat='' @click='myModal.step = 1' color='primary' label='Atras', class='q-ml-sm')
                 q-btn(@click='myModal.step = 3' color='primary' label='Continue')
                   q-btn.q-ml-sm(flat='' @click='myModal.step = 1' color='primary' label='Atras')
-            q-step(:name='3' title='Documento Reverso' icon='assignment' disable='')
-              div(class='col')
-                img(src='front-document.png')
+            q-step(:name='3' title='Documento Reverso' icon='create_new_folder' :done='myModal.step > 3')
+              div(class='column items-center')
+                img(src='back-document.png')
                 q-uploader(style='max-width: 300px' url='http://localhost:4444/upload' label='Buscar Archivo' multiple='' :filter='checkFileSize' @rejected='onRejected')
+              q-stepper-navigation()
+                q-btn(flat='' @click='myModal.step = 1' color='primary' label='Atras', class='q-ml-sm')
+                q-btn(@click='myModal.step = 4' color='primary' label='Continue')
+                  q-btn.q-ml-sm(flat='' @click='myModal.step = 1' color='primary' label='Atras')
+            q-step(:name='4' title='Selfie' caption='Optional' icon='create_new_folder' :done='myModal.step > 4')
+              div(class='column items-center')
+                img(src='liveness.gif', style='width: 15%')
+                q-uploader(style='max-width: 300px' url='http://localhost:4444/upload' label='Buscar Archivo' multiple='' :filter='checkFileSize' @rejected='onRejected')
+              q-stepper-navigation(class='row justify-between')
+                q-btn(flat='' @click='myModal.step = 1' color='primary' label='Atras', class='q-ml-sm col-2')
+                q-btn(@click='myModal.step = 4' color='primary' label='Continue' class='col-2')
+                  q-btn.q-ml-sm(flat='' @click='myModal.step = 1' color='primary' label='Atras')
+            q-step(:name='5' title='Estado del envio' icon='assignment' :done='myModal.step == 5')
+              div(class='column items-center')
+                img(src='load_init.gif', style='width: 20%;')
+                | Enviando la Informacion
               q-stepper-navigation
+                q-btn.q-ml-sm(flat='' @click='myModal.step = 2' color='primary' label='Atras')
                 q-btn(color='primary' label='Enviar')
-                  q-btn.q-ml-sm(flat='' @click='myModal.step = 2' color='primary' label='Atras')
 </template>
 
 <script lang="ts">
@@ -116,3 +133,23 @@ export default defineComponent({
   },
 });
 </script>
+<style lang="sass" scoped>
+.container
+  background: turquoise
+  width: 180px
+  height: 180px
+
+.element
+  @extend .container
+  width: 60px
+  height: 60px
+  text-align: center
+  padding-top: 10px
+  box-sizing: border-box
+
+.element5
+  background: pink
+  display: inline-block
+  line-height: 20px
+  vertical-align: baseline
+</style>
